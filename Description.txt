@@ -1,0 +1,14 @@
+A téma: valutaváltó honlap
+
+Közreműködők:
+Tóth Sándorné - adatbázis,backend
+Ágoston Attila - backend
+Kardos Zoltán - frontend
+
+Megvalósítandó feladatok:
+Üdvözlő és elköszönő képernyő
+Aktuális árfolyamok megjelenítése
+Felhasználó felvétele
+Tranzakció
+Felhasználó tranzakciójának tárolása
+Tranzakciószintnek megfelelő kedvezmény beállítása
