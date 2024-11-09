@@ -330,20 +330,6 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top" class="fieldcolumn">Extra Info</td>
 </tr>
 <tr>
-	<td align="left" valign="top"><p class="normal">currencies_ibfk_1</td>
-	<td align="left" valign="top"><p class="normal">transactions</td>
-	<td align="left" valign="top"><p class="normal">`id`</td>
-	<td align="left" valign="top"><p class="normal">`curIdFrom`</td>
-	<td align="left" valign="top"><p class="normal"> ON UPDATE CASCADE,</td>
-<tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">currencies_ibfk_2</td>
-	<td align="left" valign="top"><p class="normal">transactions</td>
-	<td align="left" valign="top"><p class="normal">`id`</td>
-	<td align="left" valign="top"><p class="normal">`curIdTo`</td>
-	<td align="left" valign="top"><p class="normal"> ON UPDATE CASCADE,</td>
-<tr>
-<tr>
 	<td align="left" valign="top"><p class="normal">currencies_ibfk_3</td>
 	<td align="left" valign="top"><p class="normal">exchanges</td>
 	<td align="left" valign="top"><p class="normal">`id`</td>
@@ -394,6 +380,17 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">PRI</td>
 	<td align="left" valign="top"><p class="normal">(NULL)</td>
 	<td align="left" valign="top"><p class="normal">auto_increment</td>
+	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">transId</td>
+	<td align="left" valign="top"><p class="normal">bigint(20) unsigned</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">NO</td>
+	<td align="left" valign="top"><p class="normal">MUL</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
@@ -545,6 +542,21 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">secondCur</td>
 	<td align="left" valign="top"><p class="normal">1</td>
 	<td align="left" valign="top"><p class="normal">secondCur</td>
+	<td align="left" valign="top"><p class="normal">A</td>
+	<td align="left" valign="top"><p class="normal">0</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">(NULL)</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">BTREE</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+	<td align="left" valign="top"><p class="normal">&nbsp;</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">exchanges</td>
+	<td align="left" valign="top"><p class="normal">1</td>
+	<td align="left" valign="top"><p class="normal">transId</td>
+	<td align="left" valign="top"><p class="normal">1</td>
+	<td align="left" valign="top"><p class="normal">transId</td>
 	<td align="left" valign="top"><p class="normal">A</td>
 	<td align="left" valign="top"><p class="normal">0</td>
 	<td align="left" valign="top"><p class="normal">(NULL)</td>
@@ -970,50 +982,6 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
 <tr>
-	<td align="left" valign="top"><p class="normal">curIdFrom</td>
-	<td align="left" valign="top"><p class="normal">int(10) unsigned</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">NO</td>
-	<td align="left" valign="top"><p class="normal">MUL</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">amountFrom</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">NO</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">curIdTo</td>
-	<td align="left" valign="top"><p class="normal">int(10) unsigned</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">NO</td>
-	<td align="left" valign="top"><p class="normal">MUL</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">amountTo</td>
-	<td align="left" valign="top"><p class="normal">int(11)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">NO</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">select,insert,update,references</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
 	<td align="left" valign="top"><p class="normal">bonusId</td>
 	<td align="left" valign="top"><p class="normal">tinyint(4) unsigned</td>
 	<td align="left" valign="top"><p class="normal">(NULL)</td>
@@ -1025,7 +993,7 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
 <tr>
-	<td align="left" valign="top"><p class="normal">time</td>
+	<td align="left" valign="top"><p class="normal">timeStamp</td>
 	<td align="left" valign="top"><p class="normal">timestamp</td>
 	<td align="left" valign="top"><p class="normal">(NULL)</td>
 	<td align="left" valign="top"><p class="normal">NO</td>
@@ -1092,36 +1060,6 @@ BR.page {page-break-after: always}
 <tr>
 	<td align="left" valign="top"><p class="normal">transactions</td>
 	<td align="left" valign="top"><p class="normal">1</td>
-	<td align="left" valign="top"><p class="normal">curIdFrom</td>
-	<td align="left" valign="top"><p class="normal">1</td>
-	<td align="left" valign="top"><p class="normal">curIdFrom</td>
-	<td align="left" valign="top"><p class="normal">A</td>
-	<td align="left" valign="top"><p class="normal">0</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">BTREE</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">transactions</td>
-	<td align="left" valign="top"><p class="normal">1</td>
-	<td align="left" valign="top"><p class="normal">curIdTo</td>
-	<td align="left" valign="top"><p class="normal">1</td>
-	<td align="left" valign="top"><p class="normal">curIdTo</td>
-	<td align="left" valign="top"><p class="normal">A</td>
-	<td align="left" valign="top"><p class="normal">0</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">(NULL)</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">BTREE</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-	<td align="left" valign="top"><p class="normal">&nbsp;</td>
-</tr>
-<tr>
-	<td align="left" valign="top"><p class="normal">transactions</td>
-	<td align="left" valign="top"><p class="normal">1</td>
 	<td align="left" valign="top"><p class="normal">bonusId</td>
 	<td align="left" valign="top"><p class="normal">1</td>
 	<td align="left" valign="top"><p class="normal">bonusId</td>
@@ -1134,6 +1072,29 @@ BR.page {page-break-after: always}
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 	<td align="left" valign="top"><p class="normal">&nbsp;</td>
 </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+<tr>
+	<td class="fieldheader" width="100%" align="left" valign="top">Foreign Key Relationships</td>
+</tr>
+</table>
+<table width="100%" cellspacing="0" cellapdding="2" border="1">
+<tr>
+	<td align="left" valign="top" class="fieldcolumn">FK Id</td>
+	<td align="left" valign="top" class="fieldcolumn">Reference Table</td>
+	<td align="left" valign="top" class="fieldcolumn">Source Column</td>
+	<td align="left" valign="top" class="fieldcolumn">Target Column</td>
+	<td align="left" valign="top" class="fieldcolumn">Extra Info</td>
+</tr>
+<tr>
+	<td align="left" valign="top"><p class="normal">transactions_ibfk_1</td>
+	<td align="left" valign="top"><p class="normal">exchanges</td>
+	<td align="left" valign="top"><p class="normal">`id`</td>
+	<td align="left" valign="top"><p class="normal">`id`</td>
+	<td align="left" valign="top"><p class="normal"> ON UPDATE CASCADE</td>
+<tr>
 </table>
 
 
