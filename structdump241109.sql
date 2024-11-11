@@ -25,7 +25,7 @@ CREATE TABLE `bonuses` (
   `level` tinyint(4) NOT NULL,
   `discount` tinyint(4) NOT NULL DEFAULT 0,
   `minAmount` int(11) NOT NULL,
-  `updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `timestamp` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   CONSTRAINT `bonuses_ibfk_1` FOREIGN KEY (`id`) REFERENCES `userlevel` (`bonusId`),
   CONSTRAINT `bonuses_ibfk_2` FOREIGN KEY (`id`) REFERENCES `transactions` (`bonusId`)
