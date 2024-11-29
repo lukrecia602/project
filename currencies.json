@@ -1,0 +1,66 @@
+[
+    {
+        "closed": 0,
+        "defAmount": 1,
+        "id": 0,
+        "lastDate": "2024-10-21",
+        "name": "EUR",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 0,
+        "defAmount": 1,
+        "id": 1,
+        "lastDate": "2024-10-21",
+        "name": "GBP",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 0,
+        "defAmount": 1,
+        "id": 2,
+        "lastDate": "2024-10-21",
+        "name": "RUB",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 0,
+        "defAmount": 1,
+        "id": 3,
+        "lastDate": "2024-10-21",
+        "name": "USD",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 1,
+        "defAmount": 100,
+        "id": 4,
+        "lastDate": "1967-11-20",
+        "name": "DDM",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 1,
+        "defAmount": 1,
+        "id": 5,
+        "lastDate": "2002-03-29",
+        "name": "FRF",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 1,
+        "defAmount": 127,
+        "id": 6,
+        "lastDate": "2002-03-29",
+        "name": "ITL",
+        "timeStamp": "2024-11-06 10:56:36"
+    },
+    {
+        "closed": 0,
+        "defAmount": 1,
+        "id": 7,
+        "lastDate": "2024-10-21",
+        "name": "HUF",
+        "timeStamp": "2024-11-29 12:45:58"
+    }
+]
