@@ -4,7 +4,7 @@
 
  <h1 align="center">Valutaváltó</h1>
  
-Üdvözlünk mindenkit a weblapon. Ennek a weboldalnak a célja, hogy egyfajta valutaváltó weboltalt kialakítsunk egy vállalkozó számára.
+Üdvözlünk mindenkit a weblapon. Ennek a weboldalnak a célja, hogy egyfajta valutaváltó weboldalt kialakítsunk egy vállalkozó számára.
 
 ## 📚 Tech Stack
 
