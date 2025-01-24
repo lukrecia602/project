@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #85c1e9;
+}
+
+a {
+    text-decoration: none;
+}
+
+.mycontainer1{
+    background: #154360;
+    border: 0.2em solid #85c1e9;
+    border-radius: 10px;
+    height: auto;
+}
+
+.mycontainer2{
+    background: #d6eaf8;
+    border: 0.2em solid #85c1e9;
+    border-radius: 20px;
+    color: #154360;
+}
