@@ -3,35 +3,93 @@
 {% block section %}
 
     <div class="mycontainer2 p-4 m-1 text-center">
+        <!--Az adatok bekérése ebben a blokkban történik:-->
+        <div>
+            <p>Üdvözöllek kedves {{user.username}}</p><!--a bejelentkezett felhasználó nevének kiírása-->
 
-        <form method="post">
+            <h1>Válts</h1>
+
+            <form method="post" action="{% url 'home' %}">
             {% csrf_token %}
-            <p>Üdvözöllek kedves {{user.username}}</p>
 
-            <label for="atvaltando">Átváltandó összeg:</label>
-            <input type="number" id="atvaltando" name="atvaltando" required>    
+            <label for="amount">Váltandó összeg</label> <!--Váltandó összeg bevitele-->
+            <input type="number" id="amount" name="amount" required>
+            <br>
 
-            <label for="errol">Erről:</label>
-            <select id="errol" name="errol">
-                {% for x in valutak %}
-                     <option value="{{ x.penznem }}">{{ x.penznem }}</option>
+            <label for="from_currency">Erről:</label> <!--Erről a pénznemről váltunk-->
+            <select id="from_currency" name="from_currency">
+                {% for currency in currencies %}
+                    <option value="{{ currency }}">{{ currency }}</option>
+                {% endfor %}
+            </select>
+            <br>
+
+            <label for="to_currency">Erre:</label> <!--Erre a pénznemre váltunk-->
+            <!--Itt az copySelectValue() metódus átadja az értéket a küldésnél található legördülő listának-->
+            <select id="to_currency" name="to_currency" onchange=copySelectValue()>
+                {% for currency in currencies %}
+                    <option value="{{ currency }}">{{ currency }}</option>
                 {% endfor %}
             </select>
 
-            <label for="erre">Erre:</label>
-            <select id="erre" name="erre">
-                {% for y in valutak %}
-                <option value="{{ y.penznem }}">{{ y.penznem }}</option>
-                {% endfor %}
-            </select>    
-            <input type="submit" id="atvalt" name="valt" value="Válás">
+            <br>
+            <input type="submit" value="Váltás"> <!--Váltás végrehajtása gomb.
+            Az itt váltott értékek NEM kerülnek bele a tranzakciók listába, csak válani lehet a pénznemek között.
+            -->
+
         </form>
+            <p>Átváltottál: {{ amount }} {{ from_currency }} - {{ converted_amount }} {{ to_currency }}</p>        
+        </div>
 
-        <p>Átváltottál: 
-        {% if atvaltottertek %}
-            {{ atvaltando }} {{ errol }} -t {{ atvaltottertek }} {{ erre }}-ra/re.
-        {% endif %}
+        <h2>és</h2>
+        <!--A küldéshez tartozó blokk.
+        FONTOS: Csak az itt bevitt adatok kerülnek be az Tranzakciók adatbázisba.-->
+        <div>
+            <h1 for="kuldes">Küldj</h1>
+            
+            <form method="post" action="{% url 'save_data' %}">
+                {% csrf_token %}
+                <input type="hidden" name="converted_amount" value="{{ converted_amount }}">
+                <input type="hidden" name="to_currency" value="{{ to_currency }}">
 
+                <label for="kedvezmenyezett">Kedvezményezett neve: </label> <!--Bevitel: Kedvezményezett neve-->
+                <input type="text" id="kedvezmenyezett" name="kedvezmenyezett" required>
+                <br>          
+
+                <label for="szamlaszamkedv">Kedvezményezett számlaszáma: </label> <!--Bevitel: Kedvezményezett számlaszáma-->
+                <input type="number" id="szamlaszamkedv" name="szamlaszamkedv" required>
+                <br>
+
+                <label for="kuldendoosszeg">Küldendő összeg:</label><!--Bevitel: Küldendő összeg.
+                 Ez a mező a váltás gomb megnyomása után, automatikusan felveszi a már átváltott értéket -->
+                <input type="number" id="kuldendoosszeg" name="kuldendoosszeg" value="{{ converted_amount }}" required>
+                <br>
+
+                <label for="kuldendopm">Küldendő pénznem:</label><!--Bevitel: küldendő pénznem.               
+                Az if és a for ciklus együttesen felel azért, hogy az adatok dinamikusan változzanak a legördülő listában.-->
+                <select id="kuldendopm" name="kuldendopm" >
+                    {% if to_currency %}
+                        <option value="to_currency">{{ to_currency }}</option>
+                        {% for currency in currencies %}
+                            <option value="{{ currency }}">{{ currency }}</option>
+                        {% endfor %}
+                        <option value="to_currency">{{ to_currency }}</option>
+                    {%else%}
+                        {% for currency in currencies %}
+                        <option value="{{ currency }}">{{ currency }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <br>
+
+                <label for="megjegyzes">Megjegyzések: </label> <!--Bevitel: Megjegyzések-->
+                <textarea id="megjegyzes" name="megjegyzes"></textarea>
+
+                <br>               
+                <input type="submit" id="mentes" value="Küldés"><!--A tranzakciós adatok rögzítése a Tranzakciok táblázatba.-->
+            </form>
+        </div>
+
+        <a href="{% url 'tranzakciok' %}"><button >Tranzakcióim</button></a><!--Gomb: Átirányít a tranzakciok.html-re -->
     </div>
-
 {% endblock section %}
