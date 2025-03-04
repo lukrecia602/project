@@ -69,11 +69,11 @@
                 Az if és a for ciklus együttesen felel azért, hogy az adatok dinamikusan változzanak a legördülő listában.-->
                 <select id="kuldendopm" name="kuldendopm" >
                     {% if to_currency %}
-                        <option value="to_currency">{{ to_currency }}</option>
+                        <option value="EUR">{{ to_currency }}</option>
                         {% for currency in currencies %}
                             <option value="{{ currency }}">{{ currency }}</option>
                         {% endfor %}
-                        <option value="to_currency">{{ to_currency }}</option>
+                        <option value="EUR">{{ to_currency }}</option>
                     {%else%}
                         {% for currency in currencies %}
                         <option value="{{ currency }}">{{ currency }}</option>

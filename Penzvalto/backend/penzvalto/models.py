@@ -8,7 +8,7 @@ class Tranzakciok(models.Model):
     kedvezmenyezettneve=models.CharField(max_length=100, default="")
     kedvezmenyezettszamlaszam = models.IntegerField(default=0)
     elkuldottosszeg=models.FloatField()
-    elkuldottdevizanem=models.CharField(max_length=4)
+    elkuldottdevizanem=models.CharField(max_length=4, default="EUR")
     megjegyzesek=models.TextField(default="")
 
     def __str__(self):

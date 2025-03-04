@@ -77,7 +77,7 @@ def save_data(request):
 @login_required
 def tranzakciok(request):
     felhasznalo=request.user.username #az épp bejelentkezett felhasználó neve
-    tranzakciok = Tranzakciok.objects.filter(felhasznalonev=felhasznalo).order_by('-kuldesdatuma') # A tranzakciós adatok, szűrve a felhasználó neve alapján 
+    tranzakciok = Tranzakciok.objects.filter(felhasznalonev=felhasznalo).order_by("-kuldesdatuma") # A tranzakciós adatok, szűrve a felhasználó neve alapján 
     return render(request, 'tranzakciok.html', {"adatok": tranzakciok})
 
 
