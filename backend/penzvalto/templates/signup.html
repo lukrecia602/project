@@ -9,8 +9,7 @@
         <h2>Regisztráció:</h2>
         
         {% if form.errors %}
-            {{ form.errors }}
-            {{ message }}
+            {{ hibauzenet }}
         {% endif %}
 
         <form method="post">

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block section %}
+<!--Itt tekintheti meg a bejelentkezett felhasználó a tranzakciós adatait-->
+<div class="mycontainer2 p-4 m-1 text-center">
+{% csrf_token %}
+<p>Kuldes datuma, Kedvezmenyezett neve, Kedvezmenyezett szamlaszama, Elkuldott osszeg, Elkuldott devizanem, Megjegyzesek</p>
+{%for i in adatok%}
+    <li>{{i.kuldesdatuma}} * {{i.kedvezmenyezettneve}} * {{i.kedvezmenyezettszamlaszam}} * {{i.elkuldottosszeg}} * {{i.elkuldottdevizanem}} * {{i.megjegyzesek}}</li>
+{%endfor%}
+
+<a href="{% url 'home' %}"><button >Váltás</button></a>
+<a href="{% url 'deleteuser' %}"><button >Felhasználó törlése</button></a>
+</div>
+
+{% endblock section %}

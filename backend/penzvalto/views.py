@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import Valutak, mnb_deviza, mnb_name
+from . models import mnb_deviza, mnb_name, Tranzakciok
 import requests
 import datetime
 
@@ -8,7 +8,7 @@ from rest_framework import status
 
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from .serializers import ValutakSerializer, MnbSerializer, MnbNameSerializer
+from .serializers import MnbSerializer, MnbNameSerializer
 
 from . import forms
 from django.contrib.auth import login, logout, authenticate  # add to imports
@@ -18,49 +18,74 @@ from django.contrib.auth.models import User
 
 from . import mnb_deviza_download
 
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+#Ez a metódus végzi a bejelentkezett felhasználó váltását és a home.html renderelését.
 @login_required
 def home(request):
 
-    valutak = Valutak.objects.all()
-    context = {
-        'mytitle': "Valutaváltó - Home page",
-    }
+    latest_date = mnb_deviza.objects.latest('date').date # Az mnb_deviza táblában található legfrisseb dátumok lekérése
+    latest_rates = mnb_deviza.objects.filter(date=latest_date) # Lista, ami a dátum szerinti legfrissebb adatokat (Árfolyam, valutanem) tartalmazza 
+    
+    rates_dict = {rate.currency: rate.value for rate in latest_rates}
+
+    if request.method == 'POST':
+        amount = round(float(request.POST['amount'])) #Váltandó összeg, kerekítve
+        from_currency = request.POST['from_currency'] #Erről a pénznemről váltunk.
+        to_currency = request.POST['to_currency'] #Ezze a pénznemr váltunk.
+
+        from_rate = rates_dict[from_currency]
+        to_rate = rates_dict[to_currency]
+
+        converted_amount = round(float(amount * (from_rate / to_rate))) #A váltott összeg kerekítve.
         
-    if request.method == "POST": # a valutaváltót működtető programrész
-        atvaltando = float(request.POST.get('atvaltando',0))
-        errol = request.POST.get('errol')
-        erre = request.POST.get('erre')
-        try: mirolertek = Valutak.objects.get(penznem=errol).arfolyam
-        except Valutak.MultipleObjectsReturned: mirolertek = Valutak.objects.filter(penznem=errol).first().arfolyam
-        try: mireertek = Valutak.objects.get(penznem=erre).arfolyam
-        except Valutak.MultipleObjectsReturned: mireertek = Valutak.objects.filter(penznem=erre).first().arfolyam
-        atvaltottertek= round(atvaltando * (mireertek / mirolertek))
-        context = {
-            'mytitle': "Valutaváltó - Home page",
-            'valutak': valutak, 
-            'atvaltottertek': atvaltottertek, 
-            'errol': errol, 
-            'erre': erre, 
-            'atvaltando': atvaltando,
-        }
-        return render(request, 'home.html', context)
-    return render(request, 'home.html', context)
+        return render(request, 'home.html', {
+            'converted_amount': converted_amount,
+            'from_currency': from_currency,
+            'to_currency': to_currency,
+            'amount': amount,
+            'currencies': rates_dict.keys()
+        })
+    else:
+        return render(request, 'home.html', {'currencies': rates_dict.keys()})
+
+
+#Az küldés gomb megnyomása után ez a metódus felel az adatok lementéséért a Tranzakciók adatbázisba.
+@login_required
+def save_data(request):
+    if request.method == 'POST':
+        felhasznalonev = request.user.username
+        kedvezmenyezett = request.POST['kedvezmenyezett'] #kedvezményezett neve
+        szamlaszamkedv = request.POST['szamlaszamkedv'] #kedvezményezett számlaszáma
+        kuldendoosszeg = request.POST['kuldendoosszeg']
+        kuldendopm = request.POST['kuldendopm'] #küldendő pénznem
+        megjegyzes = request.POST['megjegyzes']
+        
+        tranzakcio = Tranzakciok(
+            felhasznalonev=felhasznalonev,
+            kedvezmenyezettneve=kedvezmenyezett,
+            kedvezmenyezettszamlaszam=szamlaszamkedv,
+            elkuldottosszeg=kuldendoosszeg,
+            elkuldottdevizanem=kuldendopm,
+            megjegyzesek=megjegyzes
+        )
+        tranzakcio.save()
+        return redirect('home')
+    return redirect('home') #visszairányítás a home oldalra.
+
+
+#Ez a metódus felel az elküldött adatok megjelenítéséért.
+@login_required
+def tranzakciok(request):
+    felhasznalo=request.user.username #az épp bejelentkezett felhasználó neve
+    tranzakciok = Tranzakciok.objects.filter(felhasznalonev=felhasznalo).order_by("-kuldesdatuma") # A tranzakciós adatok, szűrve a felhasználó neve alapján 
+    return render(request, 'tranzakciok.html', {"adatok": tranzakciok})
+
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 
-# ha szeretnéd használni az adatbázisban lévő adatokat rest API-n keresztül, így hozzáférhetsz
-@api_view(['GET'])
-def restAdatKezeles(request):
-    if request.method == "GET":
-        allData=Valutak.objects.all()
-        serialized=ValutakSerializer(allData, many=True) 
-        #return JsonResponse(serialized.data, safe=False)
-        return Response(serialized.data)
-
-
-
 # ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** 
-#  
+# Karod Zoltán levelkardoszoltannak@gmail.com  
 # ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** 
 @api_view(['GET'])
 # frontend lekérdezése: lekérdezi az előző 30nap adatait
@@ -107,23 +132,6 @@ def restMNBRefresh(request):
 # ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** ***** 
 
 
-
-@api_view(['POST']) #valuta adatok lekérése REST API-val
-def penzadatlekeres(request):
-    response = requests.get('https://infojegyzet.hu/webszerkesztes/php/valuta/api/v1/arfolyam/')
-    if response.status_code == 200:
-        data = response.json()
-        for penznem, arfolyam in data['rates'].items():
-            Valutak.objects.update_or_create(
-                penznem=penznem,
-                defaults={'arfolyam': arfolyam}
-            )
-        return Response({'status': 'success', 'data': data}, status=status.HTTP_201_CREATED)
-    else:
-        return Response({'status': 'error', 'message': 'Penznemek lekérése sikertelen.'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-    
 #-------------------------------------------------------------------------------------------------------------------------------------
 
 #FELHASZNÁLÓ KEZELÉSHEZ SZÜKSÉGES METÓDUSOK:
@@ -144,7 +152,6 @@ def login_page(request):#bejelentkezés
             )
             if user is not None:
                 login(request, user)
-                penzadatlekeres(request) #itt van meghívva a pénznem lekéréséért felelős rest függvény
                 return redirect('home')
             else:
                 message = 'Bejelentkezés sikertelen'
@@ -152,16 +159,23 @@ def login_page(request):#bejelentkezés
 
 def signup_page(request): #regisztráció, illetve az épp regisztrált felhasználó automatikus bejelentkezése
     form = forms.SignupForm()
+    hibauzenet=""
     if request.method == 'POST':
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             user =form.save()
             login(request, user)
             return redirect('home')
-    return render(request, 'signup.html', context={'form': form})
+        else:
+            hibauzenet="Regisztráció sikertelen"
+    return render(request, 'signup.html', context={'form': form, 'hibauzenet':hibauzenet})
 
-@login_required # éppen bejelentkezett felhasználó törlése (!!óvatosan használd, nehogy a superusert töröld!!)
+@login_required # éppen bejelentkezett felhasználó törlése (superusert nem lehet így törölni)
 def delete_user(request):
     user=request.user
-    User.delete(user)
+    if user.is_superuser:
+        return redirect('tranzakciok')
+    else:
+        Tranzakciok.objects.filter(felhasznalonev=user).delete() #Törli az adott felhasználó eddigi tranzakcióiz is az adatbázisból.
+        User.delete(user)
     return redirect('login')
