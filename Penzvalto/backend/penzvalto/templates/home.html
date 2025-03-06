@@ -52,15 +52,16 @@
                 <input type="hidden" name="converted_amount" value="{{ converted_amount }}">
                 <input type="hidden" name="to_currency" value="{{ to_currency }}">
 
-                Kártya adatok:
+                Küldőtől szükséges adatok:
                 <div id="bankkartyakartya">
-                    Kártyaszám:
+                A küldő kártyaszáma:
                     <input type="text" id="kartyaszam" name="kartyaszam" maxlength="16" pattern="\d*" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     <br>
-                    Kártyára írt név:<input type="text"id="kartyatulajneve" required>
+                A Kártyán szereplő név:<input type="text"id="kartyatulajneve" required>
                     <br>
                 </div>
 
+                Kedvezményezett adatai:
                 <label for="kedvezmenyezett">Kedvezményezett neve: </label> <!--Bevitel: Kedvezményezett neve-->
                 <input type="text" id="kedvezmenyezett" name="kedvezmenyezett" required>
                 <br>          

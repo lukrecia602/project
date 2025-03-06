@@ -45,7 +45,13 @@ def home(request):
         to_rate = rates_dict[to_currency]
 
         converted_amount = round(float(amount * (from_rate / to_rate))) #A váltott összeg kerekítve.
-        kuldeskoltsege=round(float(amount* 0.005)) #Kiszámolja a küldés költségét a váltandó összegből ami a váltandó összeg fél százaléka, pénzneme.
+
+        kuldeskoltsege=0 #Kiszámolja a küldés költségét a váltandó összegből ami a váltandó összeg fél százaléka, pénzneme.
+        if amount <= 100:
+            kuldeskoltsege=round(float(amount* 0.05)) #Ha a váltanó pénz kevesebb mint 100 akkor a küldés költsége a váltandó pénz 5%-a.
+        else:
+            kuldeskoltsege=round(float(amount* 0.025)) #Ha a váltandó pénz több mint 1000 akkor a küldés összege a váltandó pénz 2,5°%-a.
+         
         osszeslevonas=round(float(amount+kuldeskoltsege)) #Az az összeg amit a küldő fél átvált plusz küldés ára.
         
         return render(request, 'home.html', {
