@@ -26,7 +26,7 @@
 
             <label for="to_currency">Erre:</label> <!--Erre a pénznemre váltunk-->
             <!--Itt az copySelectValue() metódus átadja az értéket a küldésnél található legördülő listának-->
-            <select id="to_currency" name="to_currency" onchange=copySelectValue()>
+            <select id="to_currency" name="to_currency">
                 {% for currency in currencies %}
                     <option value="{{ currency }}">{{ currency }}</option>
                 {% endfor %}
@@ -38,7 +38,7 @@
             -->
 
         </form>
-            <p>Átváltottál: {{ amount }} {{ from_currency }} - {{ converted_amount }} {{ to_currency }}</p>        
+            <p>Átváltottál: {{ amount }} {{ from_currency }} - {{ converted_amount }} {{ to_currency }}</p>    
         </div>
 
         <h2>és</h2>
@@ -52,34 +52,30 @@
                 <input type="hidden" name="converted_amount" value="{{ converted_amount }}">
                 <input type="hidden" name="to_currency" value="{{ to_currency }}">
 
+                Kártya adatok:
+                <div id="bankkartyakartya">
+                    Kártyaszám:
+                    <input type="text" id="kartyaszam" name="kartyaszam" maxlength="16" pattern="\d*" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    <br>
+                    Kártyára írt név:<input type="text"id="kartyatulajneve" required>
+                    <br>
+                </div>
+
                 <label for="kedvezmenyezett">Kedvezményezett neve: </label> <!--Bevitel: Kedvezményezett neve-->
                 <input type="text" id="kedvezmenyezett" name="kedvezmenyezett" required>
                 <br>          
 
                 <label for="szamlaszamkedv">Kedvezményezett számlaszáma: </label> <!--Bevitel: Kedvezményezett számlaszáma-->
-                <input type="number" id="szamlaszamkedv" name="szamlaszamkedv" required>
+                <input type="text" id="szamlaszamkedv" name="szamlaszamkedv" maxlength="16" pattern="\d*" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 <br>
 
-                <label for="kuldendoosszeg">Küldendő összeg:</label><!--Bevitel: Küldendő összeg.
-                 Ez a mező a váltás gomb megnyomása után, automatikusan felveszi a már átváltott értéket -->
-                <input type="number" id="kuldendoosszeg" name="kuldendoosszeg" value="{{ converted_amount }}" required>
+                <label for="kuldendoosszeg" id="kuldendoosszeg" name="kuldendoosszeg">Küldendő összeg és pénznem: {{converted_amount}} {{to_currency}}</label>
                 <br>
 
-                <label for="kuldendopm">Küldendő pénznem:</label><!--Bevitel: küldendő pénznem.               
-                Az if és a for ciklus együttesen felel azért, hogy az adatok dinamikusan változzanak a legördülő listában.-->
-                <select id="kuldendopm" name="kuldendopm" >
-                    {% if to_currency %}
-                        <option value="EUR">{{ to_currency }}</option>
-                        {% for currency in currencies %}
-                            <option value="{{ currency }}">{{ currency }}</option>
-                        {% endfor %}
-                        <option value="EUR">{{ to_currency }}</option>
-                    {%else%}
-                        {% for currency in currencies %}
-                        <option value="{{ currency }}">{{ currency }}</option>
-                        {% endfor %}
-                    {% endif %}
-                </select>
+                <label>A küldés költsége és pénznem: {{ kuldeskoltsege }} {{from_currency}}</label>
+                <br>
+                
+                <label>Összes költség és pénznem: {{ osszeslevonas }} {{from_currency}}</label>
                 <br>
 
                 <label for="megjegyzes">Megjegyzések: </label> <!--Bevitel: Megjegyzések-->

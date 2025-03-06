@@ -27,19 +27,30 @@ def home(request):
     latest_date = mnb_deviza.objects.latest('date').date # Az mnb_deviza táblában található legfrisseb dátumok lekérése
     latest_rates = mnb_deviza.objects.filter(date=latest_date) # Lista, ami a dátum szerinti legfrissebb adatokat (Árfolyam, valutanem) tartalmazza 
     
+    if latest_date==datetime.date.today(): #a valuta adatbázis automatikus frissítése (még nem tesztelt)
+        pass
+    else:
+        restMNBRefresh(request)
+
+
     rates_dict = {rate.currency: rate.value for rate in latest_rates}
 
     if request.method == 'POST':
         amount = round(float(request.POST['amount'])) #Váltandó összeg, kerekítve
-        from_currency = request.POST['from_currency'] #Erről a pénznemről váltunk.
+        from_currency = request.POST['from_currency'] #Erről a pénznemről váltunk. Ez a váltási költség pénzneme is.
         to_currency = request.POST['to_currency'] #Ezze a pénznemr váltunk.
+       
 
         from_rate = rates_dict[from_currency]
         to_rate = rates_dict[to_currency]
 
         converted_amount = round(float(amount * (from_rate / to_rate))) #A váltott összeg kerekítve.
+        kuldeskoltsege=round(float(amount* 0.005)) #Kiszámolja a küldés költségét a váltandó összegből ami a váltandó összeg fél százaléka, pénzneme.
+        osszeslevonas=round(float(amount+kuldeskoltsege)) #Az az összeg amit a küldő fél átvált plusz küldés ára.
         
         return render(request, 'home.html', {
+            'osszeslevonas': osszeslevonas,
+            'kuldeskoltsege': kuldeskoltsege,
             'converted_amount': converted_amount,
             'from_currency': from_currency,
             'to_currency': to_currency,
@@ -56,8 +67,8 @@ def save_data(request):
         felhasznalonev = request.user.username
         kedvezmenyezett = request.POST['kedvezmenyezett'] #kedvezményezett neve
         szamlaszamkedv = request.POST['szamlaszamkedv'] #kedvezményezett számlaszáma
-        kuldendoosszeg = request.POST['kuldendoosszeg']
-        kuldendopm = request.POST['kuldendopm'] #küldendő pénznem
+        kuldendoosszeg = request.POST['converted_amount']
+        kuldendopm = request.POST['to_currency'] #küldendő pénznem
         megjegyzes = request.POST['megjegyzes']
         
         tranzakcio = Tranzakciok(
