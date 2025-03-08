@@ -3,8 +3,9 @@
 {% block section %}
 <!--Itt tekintheti meg a bejelentkezett felhasználó a tranzakciós adatait-->
 <div class="mycontainer1 p-4 m-1 text-center">
-    <h1 class="text-center text-light display-1">Valami csattanós szöveg a  küldésre</h1>
-    <h4 class="text-center text-light">Frappáns szöveg a szolgáltatásra.</h4>
+    <h1 class="text-center text-light display-1">Utaljon pénzt könnyen, gyorsan és biztonságosan!</h1>
+    <h4 class="text-center text-light">Akár a vacsoraköltségeket osztják meg, akár egy közös
+        ajándékhoz járulna hozzá, velünk kényelmesen küldhet pénzt.</h4>
 
 
     <div class="mycontainer2 p-4 m-1">
@@ -21,47 +22,35 @@
         </div>
     </div>
 
-    <div class="p-2">
-        <div class="row row-cols-5 row-cols-lg-5 ">
-            <div class="col bg-body-tertiary">
-                <div class="myadat h5">Küldes dátuma</div>
-            </div>
-            <div class="col bg-body-tertiary">
-                <div class="myadat h5">Kedvezményezett neve</div>
-            </div>
-            <div class="col bg-body-tertiary">
-                <div class="myadat h5">Kedvezményezett számlaszáma</div>
-            </div>
-            <div class="col bg-body-tertiary">
-                <div class="myadat h5">Elküldött összeg devizanem</div>
-            </div>
-            <div class="col bg-body-tertiary">
-                <div class="myadat h5">Megjegyzes</div>
-            </div>
-        </div>
+    <div class="mycontainer2">
+        <p class = "h4" > Tranzakciós lista </p>
+        <table class="table table-hover my-4">
+            <thead class="table-light">
+                <tr>
+                    <td class="text-center"><b>Mikor</b></td>
+                    <td class="text-center"><b>Kinek </b></td>
+                    <td class="text-center"><b>Számlára</b></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><b>Elküldött összeg devizanem</b></td>
+                    <td colspan="2" class="text-start"><b>Megjegyzés</b></td>
+                </tr>
+            </thead>
+            <tbody class="table-primary" id="myChartDataTables">
+                {% for i in adatok %}
+                    <tr>
+                        <td class="text-center">{{ i.kuldesdatuma }}</td>
+                        <td class="text-center">{{ i.kedvezmenyezettneve }}</td>
+                        <td class="text-center">{{ i.kedvezmenyezettszamlaszam }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">{{ i.elkuldottosszeg }} {{ i.elkuldottdevizanem }}</td>
+                        <td class="text-start" colspan="2">{{i.megjegyzesek }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    
-    {%for i in adatok%}
-        <div class="p-1">
-            <div class="row row-cols-5 row-cols-lg-5 ">
-                <div class="col bg-body-tertiary">
-                    <div class="myadat">{{ i.kuldesdatuma }}</div>
-                </div>
-                <div class="col bg-body-tertiary">
-                    <div class="myadat">{{ i.kedvezmenyezettneve }}</div>
-                </div>
-                <div class="col bg-body-tertiary">
-                    <div class="myadat">{{ i.kedvezmenyezettszamlaszam }}</div>
-                </div>
-                <div class="col bg-body-tertiary">
-                    <div class="myadat">{{ i.elkuldottosszeg }} {{ i.elkuldottdevizanem }}</div>
-                </div>
-                <div class="col bg-body-tertiary">
-                    <div class="myadat"> {{i.megjegyzesek }}</div>
-                </div>
-            </div>
-        </div>
-    {%endfor%}
 
 
 {% endblock section %}

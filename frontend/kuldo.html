@@ -27,14 +27,30 @@
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
 
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Valutaváltó</a>
+                <a class="navbar-brand" href="http://fomix.hu/aladar/valto.html">Valutaváltó</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="http://fomix.hu/aladar/valto.html">Home</a>
+                        
+                        <!--Árfolyamok legördülő menűpont -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Árfolyamok
+                            </a>
+                            <ul class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="http://fomix.hu/aladar/valto.html">
+                                        <i class="bi bi-newspaper"> - Valuta kalkulátor</i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="http://fomix.hu/aladar/diagram.html">
+                                        <i class="bi bi-graph-up"> - MNB árfolyam diagrammok</i>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
 
@@ -167,7 +183,10 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <button class = "btn mybtnactive mycontainer2 m-3 p-3" onblur="#" tabindex="4"><i class="h3 bi bi-globe"></i><b> - Bejelentkezés és küldés </b></button>
+                        <button class = "btn mybtnactive mycontainer2 m-3 p-3" 
+                            onclick = "window.location.replace('http://azenhazam.mywire.org:8800/')" tabindex="4">
+                            <i class="h3 bi bi-globe"></i><b> - Bejelentkezés és küldés </b>
+                        </button>
                     </div>
         
                 </div>
