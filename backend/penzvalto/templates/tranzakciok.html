@@ -2,15 +2,66 @@
 
 {% block section %}
 <!--Itt tekintheti meg a bejelentkezett felhasználó a tranzakciós adatait-->
-<div class="mycontainer2 p-4 m-1 text-center">
-{% csrf_token %}
-<p>Kuldes datuma, Kedvezmenyezett neve, Kedvezmenyezett szamlaszama, Elkuldott osszeg, Elkuldott devizanem, Megjegyzesek</p>
-{%for i in adatok%}
-    <li>{{i.kuldesdatuma}} * {{i.kedvezmenyezettneve}} * {{i.kedvezmenyezettszamlaszam}} * {{i.elkuldottosszeg}} * {{i.elkuldottdevizanem}} * {{i.megjegyzesek}}</li>
-{%endfor%}
+<div class="mycontainer1 p-4 m-1 text-center">
+    <h1 class="text-center text-light display-1">Valami csattanós szöveg a  küldésre</h1>
+    <h4 class="text-center text-light">Frappáns szöveg a szolgáltatásra.</h4>
 
-<a href="{% url 'home' %}"><button >Váltás</button></a>
-<a href="{% url 'deleteuser' %}"><button >Felhasználó törlése</button></a>
-</div>
+
+    <div class="mycontainer2 p-4 m-1">
+        <div class = "row row-cols-1 row-cols-lg-3 g-2 text-center">
+            <p class = "h4" > Üdvözöllek kedves </p>
+            <p class = "h3" > {{user.username}} </p>
+
+            <a href="{% url 'home' %}">
+                <button class = "btn mybtnactive mycontainer2" >
+                    <i class="bi bi-send-check"></i> - Globális deviza küldése </i>
+                </button>
+            </a><!--Gomb: Átirányít a tranzakciok.html-re -->
+
+        </div>
+    </div>
+
+    <div class="p-2">
+        <div class="row row-cols-5 row-cols-lg-5 ">
+            <div class="col bg-body-tertiary">
+                <div class="myadat h5">Küldes dátuma</div>
+            </div>
+            <div class="col bg-body-tertiary">
+                <div class="myadat h5">Kedvezményezett neve</div>
+            </div>
+            <div class="col bg-body-tertiary">
+                <div class="myadat h5">Kedvezményezett számlaszáma</div>
+            </div>
+            <div class="col bg-body-tertiary">
+                <div class="myadat h5">Elküldött összeg devizanem</div>
+            </div>
+            <div class="col bg-body-tertiary">
+                <div class="myadat h5">Megjegyzes</div>
+            </div>
+        </div>
+    </div>
+    
+    {%for i in adatok%}
+        <div class="p-1">
+            <div class="row row-cols-5 row-cols-lg-5 ">
+                <div class="col bg-body-tertiary">
+                    <div class="myadat">{{ i.kuldesdatuma }}</div>
+                </div>
+                <div class="col bg-body-tertiary">
+                    <div class="myadat">{{ i.kedvezmenyezettneve }}</div>
+                </div>
+                <div class="col bg-body-tertiary">
+                    <div class="myadat">{{ i.kedvezmenyezettszamlaszam }}</div>
+                </div>
+                <div class="col bg-body-tertiary">
+                    <div class="myadat">{{ i.elkuldottosszeg }} {{ i.elkuldottdevizanem }}</div>
+                </div>
+                <div class="col bg-body-tertiary">
+                    <div class="myadat"> {{i.megjegyzesek }}</div>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+
 
 {% endblock section %}

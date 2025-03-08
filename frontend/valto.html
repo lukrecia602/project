@@ -38,26 +38,60 @@
                         </li>
 
 
+                        <!--Adatkezelés legördülő menűpont -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adatrögzítés 
+                                Adatkezelés
                             </a>
                             <ul class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="http://azenhazam.mywire.org:8800/home/"><i class="bi bi-bank"> - Django Home</i></a></li>
+                                <li>
+                                    <a class="dropdown-item disabled" href="http://azenhazam.mywire.org:8800/home/">
+                                        <i class="bi bi-bank"> - Deviza küldése</i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item disabled" href="http://azenhazam.mywire.org:8800/tranzakciok">
+                                        <i class="bi bi-person-lines-fill"> - Tranzakciós lista</i>
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"/></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-geo-alt"> - Új második almenű</i></a></li>
-                                <li><hr class="dropdown-divider"/></li>
-                                <li><a class="dropdown-item" href="http://azenhazam.mywire.org:8800/mnbrefresh/"><i class="bi bi-globe-europe-africa"> - MNB firssítés</i></a></li>
+                                <li>
+                                    <a class="dropdown-item" href="http://azenhazam.mywire.org:8800/mnbrefresh/">
+                                        <i class="bi bi-globe-europe-africa"> - MNB árfolyam firssítés</i>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://azenhazam.mywire.org:8800/signup/">Regisztráció</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://azenhazam.mywire.org:8800" >Bejelentkezés</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://azenhazam.mywire.org:8800/logout/" >Kilépés</a>
+
+
+                        <!--Felhasználókezelés legördülő menűpont -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Felhasználókezelés 
+                            </a>
+                            <ul class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="http://azenhazam.mywire.org:8800">
+                                        <i class="bi bi-door-open"> - Bejelentkezés</i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="http://azenhazam.mywire.org:8800/signup/">
+                                        <i class="bi bi-pencil-square"> - Regisztráció</i>
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <a class="dropdown-item disabled" href="http://azenhazam.mywire.org:8800/logout/">
+                                        <i class="bi bi-arrow-bar-right"> - Kilépés</i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item disabled" href="http://azenhazam.mywire.org:8800/deleteuser/">
+                                        <i class="bi bi-person-dash"> - Felhasználó törlése</i>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                     </ul>

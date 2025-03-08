@@ -3,25 +3,31 @@
 {% block section %}
 
     <div class="mycontainer2 p-4 m-1 text-center">
-    
-        <h2>Bejelentkezés:</h2>
-        <p>{{ message }}</p>
-        <p></p>
-        <form method="post">
-        <p>
-            <label for="id_username">Felhasználónév:</label>
-            <input type="text" name="username" maxlength="63" required id="id_username" required>
-        </p>
-    
-        <p>
-            <label for="id_password">Jelszó:</label>
-            <input type="password" name="password" maxlength="63" required id="id_password"required>
-        </p>
         {% csrf_token %}
-            <input type="submit" value="Bejelentkezés">
+    
+        <h1 class="display-1">Bejelentkezés</h1>
+        
+        <p class="h6" style="color:red">
+            {{ message }}
+        </p>
+        
+        <form method="post">
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Felhasználónév:</span>
+                <input class="form-control" type="text" name="username" maxlength="63" required id="id_username" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Jelszó:</span>
+                <input class="form-control" type="password" name="password" maxlength="63" required id="id_password"required>
+            </div>
+
+            {% csrf_token %}
+            <input class = "btn mybtnactive mycontainer2 " type="submit" value="Bejelentkezés">
         </form>
         <br>
-        <a href="{% url 'signup' %}"><button >Regisztráció</button></a>
+        <a href="{% url 'signup' %}"><button class = "btn mybtn mycontainer2">Regisztráció</button></a>
     
     </div>
 

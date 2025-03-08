@@ -21,3 +21,49 @@ a {
     border-radius: 20px;
     color: #154360;
 }
+
+.mybtnactive{
+    background: #154360;
+    color: #d6eaf8;
+    border: 0.2em solid #154360;;
+}
+
+.mybtnactive:hover{
+    background: #d6eaf8;
+    color: #154360;
+    border: 0.2em solid #154360;;
+}
+
+.mybtn{
+    background: #d6eaf8;
+    color: #154360;
+    border: 0.2em solid #d6eaf8;
+}
+
+.mybtn:hover{
+    background: #d6eaf8;
+    color: #154360;
+    border: 0.2em solid #154360;
+}
+
+.szoveg01{
+    color: #85c1e9;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.szoveg02{
+    color: #85c1e9;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.kuldesbig{
+    background-image: url(../img/curved-line-reflection.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center !important;
+    height: auto;
+    position: relative;
+    color: #154360;
+}
