@@ -59,7 +59,7 @@ a {
 }
 
 .kuldesbig{
-    background-image: url(../img/curved-line-reflection.svg);
+    background-image: url(/static/img/curved-line-reflection.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: top center !important;

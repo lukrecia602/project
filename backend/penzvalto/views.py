@@ -30,20 +30,29 @@ def home(request):
     if latest_date==datetime.date.today(): #a valuta adatbázis automatikus frissítése (még nem tesztelt)
         pass
     else:
-        pass
         #restMNBRefresh(request)
+        pass
 
 
     rates_dict = {rate.currency: rate.value for rate in latest_rates}
+    # simám a nmb_name -t adja át ezért lett létrehozva és van benne HUF is
+    currency = mnb_name.objects.filter(status = 1)
+
 
     if request.method == 'POST':
         amount = round(float(request.POST['amount'])) #Váltandó összeg, kerekítve
         from_currency = request.POST['from_currency'] #Erről a pénznemről váltunk. Ez a váltási költség pénzneme is.
         to_currency = request.POST['to_currency'] #Ezze a pénznemr váltunk.
        
-
-        from_rate = rates_dict[from_currency]
-        to_rate = rates_dict[to_currency]
+        if (from_currency == "HUF"):
+            from_rate = 1
+        else:
+            from_rate = rates_dict[from_currency]
+        
+        if (to_currency == "HUF"):
+            to_rate = 1
+        else:
+            to_rate = rates_dict[to_currency]
 
         converted_amount = round(float(amount * (from_rate / to_rate))) #A váltott összeg kerekítve.
 
@@ -62,10 +71,12 @@ def home(request):
             'from_currency': from_currency,
             'to_currency': to_currency,
             'amount': amount,
-            'currencies': rates_dict.keys()
+            #'currencies': rates_dict.keys()
+            'currencies': currency,
         })
     else:
-        return render(request, 'home.html', {'currencies': rates_dict.keys()})
+        #return render(request, 'home.html', {'currencies': rates_dict.keys()})
+        return render(request, 'home.html', {'currencies': currency})
 
 #Az küldés gomb megnyomása után ez a metódus felel az adatok lementéséért a Tranzakciók adatbázisba.
 @login_required

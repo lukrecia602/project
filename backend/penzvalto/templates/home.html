@@ -38,7 +38,8 @@
 
           <div class="col">
             <div class="mycontainer2 p-3 text-start">
-                <p>A pénz küldés biztonságos módja</p>
+                <p class= "h4">Ismerd meg a határok nélküli pénz világát !</p>
+                <p>Hozz ki többet a pénzedből !</p>
 
             <form method="post" action="{% url 'home' %}">
                 {% csrf_token %}
@@ -55,8 +56,12 @@
                     <label class="input-group-text" for="inputSelect">Be küldés</label>
 
                     <select class="form-select" id="from_currency" name="from_currency">
-                        {% for currency in currencies %}
-                            <option value="{{ currency }}">{{ currency }}</option>
+                        {% for curr in currencies %}
+                            {% if curr.smallname == "HUF" %}
+                                <option value="{{ curr.smallname }}" selected>{{ curr.longname }} - {{ curr.smallname }}</option>
+                            {% else %}
+                                <option value="{{ curr.smallname }}">{{ curr.longname }} - {{ curr.smallname }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
@@ -66,14 +71,21 @@
                     <label class="input-group-text" for="outputSelect">Ki váltás</label>
 
                     <select class="form-select" id="to_currency" name="to_currency">
-                        {% for currency in currencies %}
-                            <option value="{{ currency }}">{{ currency }}</option>
+                        {% for curr in currencies %}
+                            {% if curr.smallname == "EUR" %}
+                                <option value="{{ curr.smallname }}" selected>{{ curr.longname }} - {{ curr.smallname }}</option>
+                            {% else %}
+                                <option value="{{ curr.smallname }}">{{ curr.longname }} - {{ curr.smallname }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <input class = "btn mybtnactive mycontainer2 m-3 p-3" type="submit" value="Váltás"> <!--Váltás végrehajtása gomb.
+                    <button class = "btn mybtnactive mycontainer2 m-3 p-3" type="submit" value="Váltás">
+                        <i class="h3 bi bi-arrow-repeat"></i> - Átváltás számolása  
+                    </button>
+                    <!--Váltás végrehajtása gomb.
                     Az itt váltott értékek NEM kerülnek bele a tranzakciók listába, csak válani lehet a pénznemek között.
                     -->
                     </div>
@@ -98,20 +110,20 @@
             <input type="hidden" name="converted_amount" value="{{ converted_amount }}">
             <input type="hidden" name="to_currency" value="{{ to_currency }}">
 
-                <i class="h1 bi bi-box-arrow-right"></i> - Kedvezményezett adatai
+                <i class="h1 bi bi-person-vcard"></i> - Kedvezményezett adatai
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="kedvezmenyezett">Címzett neve</label>
+                    <label class="input-group-text" for="kedvezmenyezett">Név</label>
                     <input class="form-control" type="text" id="kedvezmenyezett" name="kedvezmenyezett" required>
                 </div>
 
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="szamlaszamkedv">Címzett számlaszáma</label>
+                    <label class="input-group-text" for="szamlaszamkedv">Számlaszám</label>
                     <input class="form-control" type="text" id="szamlaszamkedv" name="szamlaszamkedv" maxlength="16" pattern="\d*" required oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
 
-                <i class="h1 bi bi-box-arrow-right"></i> - Kedvezményezett adatai
+                <i class="h1 bi bi-card-list"></i> - Közlemény <span class = "szoveg02">(nem kötelező)</spna>
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="megjegyzes">Megjegyzés</label>
+                    <label class="input-group-text" for="megjegyzes">Közlemény</label>
                     <textarea class="form-control" id="megjegyzes" name="megjegyzes"></textarea>
                 </div>
 
