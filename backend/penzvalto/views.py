@@ -35,6 +35,7 @@ def home(request):
 
 
     rates_dict = {rate.currency: rate.value for rate in latest_rates}
+    
     # simám a nmb_name -t adja át ezért lett létrehozva és van benne HUF is
     currency = mnb_name.objects.filter(status = 1)
 
@@ -54,15 +55,19 @@ def home(request):
         else:
             to_rate = rates_dict[to_currency]
 
-        converted_amount = round(float(amount * (from_rate / to_rate))) #A váltott összeg kerekítve.
+        reverse_rate = round((to_rate / from_rate), 4)
+
+        converted_amount = round(float(amount * (from_rate / to_rate)), 4) #A váltott összeg kerekítve.
 
         kuldeskoltsege=0 #Kiszámolja a küldés költségét a váltandó összegből ami a váltandó összeg fél százaléka, pénzneme.
-        if amount <= 100:
-            kuldeskoltsege=round(float(amount* 0.05)) #Ha a váltanó pénz kevesebb mint 100 akkor a küldés költsége a váltandó pénz 5%-a.
+        koltseg = 0.009
+        kuldeskoltsege = round(float(amount * from_rate * koltseg), 4)
+        if kuldeskoltsege <= 34900:
+            kuldeskoltsege = kuldeskoltsege #Ha a váltanó pénz kevesebb mint 100 akkor a küldés költsége a váltandó pénz 5%-a.
         else:
-            kuldeskoltsege=round(float(amount* 0.025)) #Ha a váltandó pénz több mint 1000 akkor a küldés összege a váltandó pénz 2,5°%-a.
+            kuldeskoltsege = 34900 #Ha a váltandó pénz több mint 1000 akkor a küldés összege a váltandó pénz 2,5°%-a.
          
-        osszeslevonas=round(float(amount+kuldeskoltsege)) #Az az összeg amit a küldő fél átvált plusz küldés ára.
+        osszeslevonas=round(float(amount + kuldeskoltsege), 4) #Az az összeg amit a küldő fél átvált plusz küldés ára.
         
         return render(request, 'home.html', {
             'osszeslevonas': osszeslevonas,
@@ -73,6 +78,9 @@ def home(request):
             'amount': amount,
             #'currencies': rates_dict.keys()
             'currencies': currency,
+            'from_rate' : from_rate,
+            'to_rate' : to_rate,
+            'reverse_rate' : reverse_rate,
         })
     else:
         #return render(request, 'home.html', {'currencies': rates_dict.keys()})
