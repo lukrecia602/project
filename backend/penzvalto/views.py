@@ -55,19 +55,19 @@ def home(request):
         else:
             to_rate = rates_dict[to_currency]
 
-        reverse_rate = round((to_rate / from_rate), 4)
+        reverse_rate = round((to_rate / from_rate), 3)
 
-        converted_amount = round(float(amount * (from_rate / to_rate)), 4) #A váltott összeg kerekítve.
+        converted_amount = round(float(amount * (from_rate / to_rate)), 3) #A váltott összeg kerekítve.
 
         kuldeskoltsege=0 #Kiszámolja a küldés költségét a váltandó összegből ami a váltandó összeg fél százaléka, pénzneme.
         koltseg = 0.009
-        kuldeskoltsege = round(float(amount * from_rate * koltseg), 4)
+        kuldeskoltsege = round(float(amount * from_rate * koltseg), 3)
         if kuldeskoltsege <= 34900:
             kuldeskoltsege = kuldeskoltsege #Ha a váltanó pénz kevesebb mint 100 akkor a küldés költsége a váltandó pénz 5%-a.
         else:
             kuldeskoltsege = 34900 #Ha a váltandó pénz több mint 1000 akkor a küldés összege a váltandó pénz 2,5°%-a.
          
-        osszeslevonas=round(float(amount + kuldeskoltsege), 4) #Az az összeg amit a küldő fél átvált plusz küldés ára.
+        osszeslevonas=round(float(amount + kuldeskoltsege), 3) #Az az összeg amit a küldő fél átvált plusz küldés ára.
         
         return render(request, 'home.html', {
             'osszeslevonas': osszeslevonas,
