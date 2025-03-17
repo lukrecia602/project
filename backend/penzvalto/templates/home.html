@@ -92,16 +92,19 @@
     
             </form>
     
-            <div class = "h6 text-center" id="kuldendoosszeg" name="kuldendoosszeg">
+            <div class = "h6 text-start" id="kuldendoosszeg" name="kuldendoosszeg">
+                <h6>Küldendő összeg:</h6>
+                <h6>{{amount}} {{from_currency}} = </h6>
+                <h6>1 {{from_currency}} = {{ from_rate}} {{to_currency}}</h6>
+                <h6>1 {{to_currency}} =  {{ reverse_rate}} {{from_currency}}</h6>
+            </div>
+            
+            <div class = "h6 text-start" >
+                <span style="color:red">{{ kuldeskoltsege }} HUF</span>  a kezelési költség!
+            </div>
+            
+            <div class = "h4 text-start" >
                 Küldendő összeg és pénznem: {{converted_amount}} {{to_currency}}
-            </div>
-            
-            <div class = "h6 text-center" style="color:red">
-                A küldés költsége és pénznem: {{ kuldeskoltsege }} {{from_currency}}
-            </div>
-            
-            <div class = "h6 text-center" >
-                Összes költség és pénznem: {{ osszeslevonas }} {{from_currency}}
             </div>
             
 
