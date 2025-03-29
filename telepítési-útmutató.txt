@@ -35,7 +35,7 @@ Hozd létre az applikációt:
 
 A github-ról töltsük le a main branchot zip-pel, és csomagoljuk ki. Az alapértelmezett könyvtára a project-main lesz.
 
-Másoljuk be a letöltött fájlokat, a manage.py kivételével.
+Másoljuk be a letöltött fájlokat a projekt mappájába (megtartva a már létrehozott szerkezetet), a manage.py kivételével.
 
 Migráljuk az adatokat:
 	python manage.py makemigrations
