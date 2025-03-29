@@ -1,0 +1,47 @@
+Hozzunk létre egy üres mappát és vscode segtségével nyissuk meg (File/Open Folder menüpont). Ez lesz a projekt mappája.
+Ezután keressük meg Terminal\New Terminal menüpontot vagy nyomjuk meg a CTRL+Shift+ö billentyűkombinációt.
+Ha a terminálunk tipusa PowerShell, váltsuk át Command Promt-ra és hozzuk létre a virtuális környezetet.
+	python -m venv .
+Lépjünk be a Scripts könyvtárba:
+	CD Scripts
+Aktiváljuk a virtuális környezetet:
+	activate
+
+Telepítsük a djangot:
+	pip install django
+
+Frissítsük a Pip és setup tools-t:
+	python.exe -m pip install --upgrade pip
+	python.exe -m pip install --upgrade setuptools
+
+Telepítsük az alrendszereket:
+	pip install djangorestframework
+	pip install django-cors-headers
+	pip install requests
+	pip install pandas
+	pip install openpyxl	
+
+Lépj vissza a szülőmappába:
+	CD..
+Hozzuk létre az adminisztrációs projektet:
+	django-admin startproject config
+Nevezzük át akülső config mappát backendre:
+	REN config backend
+lépj be a backend mappába:
+	CD backend
+
+Hozd létre az applikációt:
+	python manage.py startapp penzvalto
+
+A github-ról töltsük le a main branchot zip-pel, és csomagoljuk ki. Az alapértelmezett könyvtára a project-main lesz.
+
+Másoljuk be a letöltött fájlokat, a manage.py kivételével.
+
+Migráljuk az adatokat:
+	python manage.py makemigrations
+	python manage.py migrate
+
+--- Superusert nem kell létrehozni, a superuser felhasználónév: admin, jelszó: admin----------------
+
+Indítsuk el a szervert:
+python manage.py runserver
