@@ -84,3 +84,6 @@ Ha tetszik ez a téma, ne felejtse el megadni a ⭐.
 ## 📝 License
 
 Ez a projekt nyílt forráskódú és a MIT licenc alatt érhető el.
+
+Documentáció
+A project dokumentációja elérhető a documentation branchban - projektleírás,mellékletek word formátumban, és egy prezentáció. A fájlokra mutató link a main branch docs könyvtárában lévő documentations.md fájlban található.
