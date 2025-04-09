@@ -85,5 +85,5 @@ Ha tetszik ez a téma, ne felejtse el megadni a ⭐.
 
 Ez a projekt nyílt forráskódú és a MIT licenc alatt érhető el.
 
-Documentáció
-A project dokumentációja elérhető a documentation branchban - projektleírás,mellékletek word formátumban, és egy prezentáció. A fájlokra mutató link a main branch docs könyvtárában lévő documentations.md fájlban található.
+## 💌 Dokumentáció
+A project dokumentációja elérhető a **documentation branch**ban - _projektleírás,mellékletek_ word formátumban, és egy prezentáció.<br> A fájlokra mutató link a **main branch** docs könyvtárában lévő _documentations.md_ fájlban található.
