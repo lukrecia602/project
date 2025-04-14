@@ -86,9 +86,13 @@ Ha tetszik ez a téma, ne felejtse el megadni a ⭐.
 Ez a projekt nyílt forráskódú és a MIT licenc alatt érhető el.
 
 ## 💌 Dokumentáció
-A project dokumentációja elérhető a **documentation branch**ban - _projektleírás,mellékletek_ word formátumban, és egy prezentáció.<br> A fájlokra mutató link a **main branch** docs könyvtárában lévő _documentations.md_ fájlban található, vagy a következők is:<br>Bemutató:
+A project dokumentációja elérhető a **documentation branch**ban - _projektleírás,mellékletek_ word formátumban, és egy prezentáció.
+<br> A fájlokra mutató link a **main branch** docs könyvtárában lévő _documentations.md_ fájlban található, vagy a következők is:
+<br>Bemutató:
 <p><a href="https://github.com/lukrecia602/project/blob/documentation/Valutav%C3%A1lt%C3%B3_teljes_t%C3%B6m%C3%B6ritett.pptx">Bemutató teljes</a></p>
 Projektleirás:
 <p><a href="https://github.com/lukrecia602/project/blob/documentation/Projektfeladat%20leir%C3%A1s.docx">Projektleirás</a></p>
 Mellékletek:
 <p><a href="https://github.com/lukrecia602/project/blob/documentation/Mell%C3%A9kletek.docx">Mellékletek</a></p>
+pdf-ben:
+<p><a href="https://github.com/lukrecia602/project/blob/documentation/Mell%C3%A9kletek.pdf">Mellékletek pdf-ben</a></p>
