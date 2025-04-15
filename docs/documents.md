@@ -3,7 +3,7 @@ Bemutató:
 Projektleirás:
 <p><a href="https://github.com/lukrecia602/project/blob/documentation/Projektfeladat%20leir%C3%A1s.docx">Projektleirás</a></p>
 pdf-ben:
-<p><a href="">Projektleirás pdf-ben (később)</a></p>
+<p><a href="https://github.com/lukrecia602/project/blob/documentation/Projektfeladat%20leir%C3%A1s.pdf">Projektleirás pdf-ben</a></p>
 Mellékletek:
 <p><a href="https://github.com/lukrecia602/project/blob/documentation/Mell%C3%A9kletek.docx">Mellékletek</a></p>
 pdf-ben:
